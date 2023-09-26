@@ -1,5 +1,5 @@
 function [x,out,k] = LM_ALM(T,x,y,beta,param,opt)
-    % LM method for the optimization of the Augmented Lagrangian objective to x.
+    % LM method for the optimization of the Augmented Lagrangian objective w.r.t. x.
     
     % Initialize parameters
     xvec = cell2vec(x);
@@ -23,7 +23,7 @@ function [x,out,k] = LM_ALM(T,x,y,beta,param,opt)
     end
 
     out = struct;      
-    out = initialize_output_LM(out,Un,f,Fn,hn,norm(gr),mu);
+    out = initialize_output_LM(out,Un,f,Fn,hn,norm(gr));
    
     while (found == 0) && (k < opt.kmax)
         
@@ -54,7 +54,7 @@ function [x,out,k] = LM_ALM(T,x,y,beta,param,opt)
                 nu = 2;
                 k = k + 1;
                 
-                out = update_output_LM(out,Un,f,Fn,hn,norm(gr),mu,rho);
+                out = update_output_LM(out,Un,f,Fn,hn,norm(gr));
     
                 fprintf(('It: %i, Fn: %i, hn: %i, grn: %i, Un: %i, mu: %i, stepn: %i \n'),...
                     k,Fn,hn,norm(gr),norm(xvec,'inf'),mu,stepn)

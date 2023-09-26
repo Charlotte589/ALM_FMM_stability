@@ -410,7 +410,7 @@ function E = func_3param_345_R47(param,i)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{U,V,W}))<=10^-15);
 
-    param2;
+    %disp(param2)
     [Q1,E1] = pref_stab_asym({U,V,W},param2);
 
     %% (4,5,3)
@@ -426,7 +426,7 @@ function E = func_3param_345_R47(param,i)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{Ut,Wt,Vt}))<=10^-15);
 
-    param2;
+    %disp(param2)
     [Q2,E2] = pref_stab_asym({Ut,Wt,Vt},param2);
     
     %% (5,3,4)
@@ -438,7 +438,7 @@ function E = func_3param_345_R47(param,i)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{Wt,Vt,Ut}))<=10^-15);
 
-    param2;
+    %disp(param2)
     [Q3,E3] = pref_stab_asym({Wt,Vt,Ut},param2);
     
     %% (3,4,5)
@@ -447,7 +447,7 @@ function E = func_3param_345_R47(param,i)
     param2.P = 4;
     param2.N = 5;
 
-    param2;
+    %disp(param2)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{Vt,Ut,Wt}))<=10^-15);
 
@@ -459,7 +459,7 @@ function E = func_3param_345_R47(param,i)
     param2.P = 3;
     param2.N = 5;
 
-    param2;
+    %disp(param2)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{V,W,U}))<=10^-15);
 
@@ -471,7 +471,7 @@ function E = func_3param_345_R47(param,i)
     param2.P = 5;
     param2.N = 4;
 
-    param2;
+    %disp(param2)
     TM = multiplication_tensor(param2.M,param2.P,param2.N);
     assert(norm(error_CPD(TM,{W,U,V}))<=10^-15);
 

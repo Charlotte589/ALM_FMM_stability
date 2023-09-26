@@ -40,10 +40,9 @@ function [out] = LM(TM,x,param,opts)
     end
     
     out = struct;    
-    out.cost = f; 
-    out.rho = [];
+    out.cost = f;
+    out.CPD = norm(F);
     out.gradn = norm(g);
-    out.mu = mu;
     out.normx = norm(cell2vec(x),'inf');
     
     while (found == 0) && (k < opts.kmax)
@@ -61,8 +60,7 @@ function [out] = LM(TM,x,param,opts)
             rho = f - fnew;
             rho = 2*rho/(step'*(mu*step-real(g)));  
 
-            if rho > 0
-                
+            if rho > 0              
                 x = xnew;
                 F = error_func(TM,x,opts,param);
                 f = 0.5*norm(F)^2;
@@ -76,16 +74,15 @@ function [out] = LM(TM,x,param,opts)
                 k = k + 1;
                               
                 out.cost = [out.cost; f];
+                out.CPD = [out.CPD; norm(F)];
                 out.gradn = [out.gradn; norm(g)];
-                out.rho = [out.rho; rho];
-                out.mu = [out.mu; mu];
                 out.normx = [out.normx; norm(cell2vec(x),'inf')];
 
                 fprintf(('It: %i, f: %i, gn: %i, Un: %i, mu: %i, stepn: %i \n'),k,f, norm(g),norm(cell2vec(x),'inf'),mu,norm(step))
                 
             else
                 mu = mu*nu;
-                nu = nu*1.5;
+                nu = nu*2;
             end
         end       
         

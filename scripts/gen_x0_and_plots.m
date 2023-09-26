@@ -1,4 +1,4 @@
-
+clear
 param.M = 3;
 param.P = 3;
 param.N = 3;
@@ -24,7 +24,7 @@ n = param.M*param.P*param.N;
 %% mpn triv 1s, asym
 
 k0 = 1;
-kmax = 100;
+kmax = 10;
 results = cell(1,kmax-k0+1);
 for k=k0:kmax
     ind2 = ind;
@@ -78,6 +78,8 @@ results = cell(1,kmax-k0+1);
 opt.discr = 1;
 opt.beta = 10^-1;
 folder = cd;
+% You can choose other solutions from the sols folder but then you have to
+% change the parameters at the beginning of the script.
 load(strcat(folder,'/sols/333/Rank 23/x_Smirnov_139nzs_rankJ_534.mat'))
 U = x{1};
 V = x{2};
@@ -104,8 +106,8 @@ opt.discr = 0;
 opt.u = 1;
 opt.l = -1;
 k0 = 1;
-opt.kmax = 1000;
-kmax = 100;
+opt.kmax = 10;
+kmax = 10;
 results = cell(1,kmax-k0+1);
 param.S = 2;
 param.T = 7;
@@ -141,7 +143,7 @@ box on
 ranks = zeros(length(results),1);
 
 for i=1:length(results)
-    if norm(error_CPD(TM,results{i}.Ubest)) < 10^-10
+    if results{i}.CPD < 10^-10
         ranks(i) = rank(deriv_CPD(results{i}.Ubest),10^-9);
         disp(i)
     end

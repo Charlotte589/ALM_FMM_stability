@@ -7,8 +7,6 @@ function xvec = cell2vec(x)
             xi = x{i};
             xvec = [xvec; xi(:)];      
         end
-    elseif isstruct(x)
-        xvec = [x.U(:);x.V(:);x.W(:)];
     else
         xvec = x(:);
     end

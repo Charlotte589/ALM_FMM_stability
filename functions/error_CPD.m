@@ -1,7 +1,5 @@
 function F = error_CPD(T,x,param)
     
-    %mult_tensor = multiplication_tensor(param.M,param.P,param.N);
-    
     if iscell(x)
         U = x{1};
         V = x{2};

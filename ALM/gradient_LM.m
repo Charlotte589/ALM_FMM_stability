@@ -21,7 +21,4 @@ function g = gradient_LM(x,T,y,beta,param,opt)
     
     g = g*beta;
     
-    if isstruct(x)
-       g = vec2cell(g,param,opt);
-    end
 end

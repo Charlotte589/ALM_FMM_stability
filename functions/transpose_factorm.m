@@ -4,8 +4,7 @@ function Ut = transpose_factorm(U,n1,n2)
     
     for i=1:length(Ut)
         UTi = reshape(U(:,i),n1,n2)';
-        Ut(:,i) = UTi(:);
-        
+        Ut(:,i) = UTi(:);       
     end
 
 end

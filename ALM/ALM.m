@@ -38,26 +38,26 @@ function out = ALM(T,x,param,opt)
      
     mu = (10^(-1)); % (Conn:0.1) 1/beta, <= 1
     beta = 1/mu;
-    params_ALM.tau = 0.25; %0.01 %beta/tau, < 1
+    params_ALM.tau = 0.25; %(Conn: 0.01) %beta/tau, < 1
     params_ALM.gamma_bar = 0.1; % (Conn: 0.1) < 1 gamma_1
     
     alfa = min(mu,params_ALM.gamma_bar); %0.1 % < 1
     
     % Initialization tolerances
-    params_ALM.alfa_w = 3; % (Conn:1) hoe groter hoe lager initele tolerantie gradient
-    params_ALM.beta_w = 3; % (Conn:1) hoe groter hoe lager initele tolerantie gradient
+    params_ALM.alfa_w = 3; % (Conn:1)
+    params_ALM.beta_w = 3; % (Conn:1) 
     params_ALM.w_bar = 1; % <= 1 w_0 (Conn:1)
     
     w = params_ALM.w_bar*(alfa)^(params_ALM.alfa_w); % 0.1
      
     opt.gradtol = w;
     
-    params_ALM.alfa_nu = 0.9; % Conn:0.1 % < min(1,alfa_w) hoe kleiner hoe hoger initele tolerantie constraint
-    params_ALM.beta_nu = 0.9; % Conn:0.9 % < min(1,beta_w) vertraagt daling nu (tolerantie constraint)
-    params_ALM.nu_bar = 1; % Conn:1 % <= 1 hoe kleiner hoe lager initiele tolerantie constraint  
+    params_ALM.alfa_nu = 0.9; % Conn:0.1 % < min(1,alfa_w) 
+    params_ALM.beta_nu = 0.9; % Conn:0.9 % < min(1,beta_w) 
+    params_ALM.nu_bar = 1; % Conn:1 % <= 1 
     
     % Tolerance constraint
-    nu = params_ALM.nu_bar*(alfa)^(params_ALM.alfa_nu); % +- 0.02
+    nu = params_ALM.nu_bar*(alfa)^(params_ALM.alfa_nu); 
     k = 1;
     
     gradtol_opt = 10^(-14);
@@ -104,17 +104,13 @@ function out = ALM(T,x,param,opt)
             y = y_new;
             
             alfa = mu;
-            % Tolerantie gradient verkleinen maar met een kleine fractie 
-            % dan de tolerantie van de gradient (beta_nu < beta_w)
             nu = max(nu*mu^params_ALM.beta_nu,nu_opt);
-                        
-            % Tolerantie gradient verkleinen
             w = max(w*alfa^params_ALM.beta_w,gradtol_opt);
 
             opt.gradtol = w;
                 
         else
-            mu = max(params_ALM.tau*mu,10^(-16)); % mu verkleinen
+            mu = max(params_ALM.tau*mu,10^(-16));
             beta = 1/mu;
             alfa = mu*params_ALM.gamma_bar;
             nu = max(params_ALM.nu_bar*alfa^params_ALM.beta_nu,nu_opt);
